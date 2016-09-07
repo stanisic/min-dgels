@@ -328,7 +328,7 @@ int second_example()
 
 int third_example()
 {
-        char *filepath = "input.csv";
+        char *filepath = "input/input.csv";
 	FILE *f;
 	f = fopen(filepath, "a+");	
 	
