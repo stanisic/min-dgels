@@ -13,3 +13,8 @@ install:
 
 clean:
 	cd $(CLAPACK) && $(MAKE) clean
+
+
+archive: clean
+	rm -rf min-dgels-src.tar.gz
+	tar -zcvf min-dgels-src.tar.gz src/
