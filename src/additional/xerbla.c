@@ -55,7 +55,7 @@ static integer c__1 = 1;
 /*     .. */
 /*     .. Executable Statements .. */
 
-    printf("** On entry to %6s, parameter number %2i had an illegal value\n",
+    printf("** On entry to %s, parameter number %ld had an illegal value\n",
 		srname, *info);
 
 
