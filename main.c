@@ -1,14 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <assert.h>
 
 // From src/additional
 #include <f2c.h>
 #include <multiple_regression.h>
 
-void compute(double *mA, double *mB, double *mX, long mm, int nn)
+void compute(double *A, double *B, double *X, long mm, int nn)
 {
 
   /*  Arguments */
@@ -95,15 +92,8 @@ void compute(double *mA, double *mB, double *mX, long mm, int nn)
   integer m = mm; // the number of rows of the matrix A
   integer n = nn; // the number of columns of the matrix A
   integer nrhs = 1; // number of columns of B and X (which are vectors therefore nrhs=1)
-  doublereal *A = malloc(sizeof(double)*n*m); // input/output array, dimension (LDA,N)
-  doublereal *B = malloc(sizeof(double)*m); // input/output array, dimension (LDB,NRHS), on exit overwritten by the solution where rows 1 to n of B contain the least squares solution vector
-  
-  for(int i=0; i < m; i++)
-  {
-     B[i] = mB[i];
-     for(int j=0; j < n; j++)
-       A[j*m+i] = mA[i*n+j];
-  }
+
+  // A and B arrays are the arguments of this function
 
   integer lda = m; // The leading dimension of the array A
   integer ldb = m; // The leading dimension of the array B
@@ -122,16 +112,14 @@ void compute(double *mA, double *mB, double *mX, long mm, int nn)
   }
 	
   for(int j=0; j < n; j++)
-    mX[j] = B[j];
+    X[j] = B[j];
 
-  free(A);
-  free(B);
   free(work);
 }
 
 void validate()
 {
-  printf("\nValidation is not implemented yet!\n");
+  printf("\n\nValidation is not implemented yet!\n");
 }
 
 int main()
@@ -139,34 +127,38 @@ int main()
   // Simple example definition
   unsigned m=3;
   unsigned n=2;
-  double mA[] = {1, -1, 1, 1, 2, 1};
-  double mB[] = {2, 4, 8};
-  double *mX = (double *) malloc(n*sizeof(double));
+  double A[] = {1, 1, 2, -1, 1, 1}; // need to be stored column by column
+  double A_bck[] = {1, 1, 2, -1, 1, 1};
+  double B[] = {2, 4, 8};
+  double B_bck[] = {2, 4, 8};
+  double *X = (double *) malloc(n*sizeof(double));
 
   // Printing input of the problem
   for (int i = 0; i < m; i++)
   {
-    printf("x%d*%d ", 0, (int)mA[i*n]);
+    printf("\nx%d*%d ", 0, (int)A[i*n]);
     for (int j = 1; j < n; j++)
-      printf("+ x%d*%d ", j, (int)mA[i*n+j]);
-    printf("= %g\n", mB[i]);
+      printf("+ x%d*%d ", j, (int)A[i*n+j]);
+    printf("= %g", B[i]);
   }
 
   // Main function to compute coefficients
-  compute(mA, mB, mX, m, n);
+  // Bare in mind that both A and B are overwritten in the process
+  // Possibly this should be changed in the future
+  compute(A, B, X, m, n);
 
   // Printing output
-  printf("\nCoefficients:");
-  printf("  %g", mX[0]);
+  printf("\n\nComputed coefficients:");
+  printf("  x0=%g", X[0]);
   for (int i = 1; i < n; i++)
-      printf(", %g", mX[i]);
+    printf(", x%d=%g", i, X[i]);
   
   for (int i = 0; i < m; i++)
   {
-    printf("\n%g*%d ", mX[0], (int)mA[i*n]);
+    printf("\n%g*%d ", X[0], (int)A_bck[i*n]);
     for (int j = 1; j < n; j++)
-      printf("+ %g*%d ", mX[j], (int)mA[i*n+j]);
-    printf("= %g", mB[i]);
+      printf("+ %g*%d ", X[j], (int)A_bck[i*n+j]);
+    printf("= %g", B_bck[i]);
   }
 
   // Validating the model accuracy
