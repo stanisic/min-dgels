@@ -5,7 +5,9 @@ ADDITIONAL=src/additional
 
 all: clean install run
 
-run: #Write main
+run:
+	gcc $(ADDITIONAL)/*.c main.c -lm $(GSL_LIB) $(BLAS_LIB) $(F2C_LIB) -I$(ADDITIONAL) -omain
+	./main
 
 install:
 	cd $(CLAPACK) && $(MAKE) -j5 blaslib
@@ -13,6 +15,7 @@ install:
 
 clean:
 	cd $(CLAPACK) && $(MAKE) clean
+	rm -rf main
 
 
 archive: clean
