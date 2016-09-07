@@ -1,0 +1,3 @@
+*.o
+*.a
+src/base/F2CLIBS/libf2c/*.h
