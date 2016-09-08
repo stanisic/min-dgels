@@ -58,8 +58,8 @@ RANLIB   = ranlib
 #  The target's machine-specific, optimized BLAS library should be
 #  used whenever possible.
 #
-BLASLIB      = ../../blas$(PLAT).a
+BLASLIB      = ../../BUILD/libminblas.a
 #
 #  Names of generated libraries.
 #
-F2CLIB       = ../../libf2c.a
+F2CLIB       = ../../../BUILD/libminf2c.a

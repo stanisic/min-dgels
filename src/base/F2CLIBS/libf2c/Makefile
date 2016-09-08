@@ -70,11 +70,11 @@ TIME =	dtime_.o etime_.o
 OFILES = $(MISC) $(POW) $(CX) $(DCX) $(REAL) $(DBL) $(INT) \
 	$(HALF) $(CMP) $(EFL) $(CHAR) $(I77) $(TIME)
 
-all: f2c.h signal1.h sysdep1.h libf2c.a clapack_install
+all: f2c.h signal1.h sysdep1.h libminf2c.a clapack_install
 
-libf2c.a: $(OFILES)
-	ar r libf2c.a $?
-	-ranlib libf2c.a
+libminf2c.a: $(OFILES)
+	ar r libminf2c.a $?
+	-ranlib libminf2c.a
 
 ## Shared-library variant: the following rule works on Linux
 ## systems.  Details are system-dependent.  Under Linux, -fPIC
@@ -118,15 +118,15 @@ sysdep1.h: sysdep1.h0
 #main.o: main.c
 #	$(CC) -c -Donexit=on_exit -DSkip_f2c_Undefs main.c
 
-install: libf2c.a
-	cp libf2c.a $(LIBDIR)
-	-ranlib $(LIBDIR)/libf2c.a
+install: libminf2c.a
+	cp libminf2c.a $(LIBDIR)
+	-ranlib $(LIBDIR)/libminf2c.a
 
-clapack_install: libf2c.a
-	mv libf2c.a ..
+clapack_install: libminf2c.a
+	mv libminf2c.a ../../BUILD
 
 clean:
-	rm -f libf2c.a *.o arith.h signal1.h sysdep1.h
+	rm -f libminf2c.a *.o arith.h signal1.h sysdep1.h
 
 backspac.o:	fio.h
 close.o:	fio.h

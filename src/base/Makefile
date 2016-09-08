@@ -23,6 +23,4 @@ cleanlib:
 	( cd SRC; $(MAKE) clean )
 	( cd SRC/VARIANTS; $(MAKE) clean )
 	( cd F2CLIBS/libf2c; $(MAKE) clean )
-	( cd F2CLIBS/libf2c; rm -f *.a )
-	( cd F2CLIBS/; rm -f *.a )
-	( rm -f *.a)
+	( cd BUILD; rm -f *.a )

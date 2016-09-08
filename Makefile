@@ -1,12 +1,12 @@
 CLAPACK=src/base
-BLAS_LIB=$(CLAPACK)/blas_LINUX.a
-F2C_LIB=$(CLAPACK)/F2CLIBS/libf2c.a
+BLAS_LIB=$(CLAPACK)/BUILD/libminblas.a
+F2C_LIB=$(CLAPACK)/BUILD/libminf2c.a
 ADDITIONAL=src/additional
 
 all: clean install run
 
 run:
-	gcc $(ADDITIONAL)/*.c main.c -lm $(GSL_LIB) $(BLAS_LIB) $(F2C_LIB) -I$(ADDITIONAL) -omain
+	gcc $(ADDITIONAL)/*.c main.c -lm $(BLAS_LIB) $(F2C_LIB) -I$(ADDITIONAL) -omain
 	./main
 
 install:
