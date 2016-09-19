@@ -50,16 +50,5 @@ TIMER    = INT_CPU_TIME
 #  The archiver and the flag(s) to use when building archive (library)
 #  If you system has no ranlib, set RANLIB = echo.
 #
-ARCH     = ar
-ARCHFLAGS= cr
-RANLIB   = ranlib
-#
-#  The location of BLAS library for linking the testing programs.
-#  The target's machine-specific, optimized BLAS library should be
-#  used whenever possible.
-#
-BLASLIB      = ../../BUILD/libminblas.a
-#
-#  Names of generated libraries.
-#
-F2CLIB       = ../../../BUILD/libminf2c.a
+
+

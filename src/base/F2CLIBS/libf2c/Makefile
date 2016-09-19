@@ -1,6 +1,7 @@
 
 TOPDIR=../..
 include $(TOPDIR)/make.inc
+include $(TOPDIR)/../min-make.inc
 
 # Unix makefile: see README.
 # For C++, first "make hadd".
@@ -70,11 +71,11 @@ TIME =	dtime_.o etime_.o
 OFILES = $(MISC) $(POW) $(CX) $(DCX) $(REAL) $(DBL) $(INT) \
 	$(HALF) $(CMP) $(EFL) $(CHAR) $(I77) $(TIME)
 
-all: f2c.h signal1.h sysdep1.h libminf2c.a clapack_install
+all: f2c.h signal1.h sysdep1.h libminf2c.a
 
 libminf2c.a: $(OFILES)
-	ar r libminf2c.a $?
-	-ranlib libminf2c.a
+	$(ARCH) $(ARCHFLAGS) $(F2CLIB) $?
+	$(RANLIB) $(F2CLIB)
 
 ## Shared-library variant: the following rule works on Linux
 ## systems.  Details are system-dependent.  Under Linux, -fPIC
@@ -117,13 +118,6 @@ sysdep1.h: sysdep1.h0
 # uncomment the following two lines:
 #main.o: main.c
 #	$(CC) -c -Donexit=on_exit -DSkip_f2c_Undefs main.c
-
-install: libminf2c.a
-	cp libminf2c.a $(LIBDIR)
-	-ranlib $(LIBDIR)/libminf2c.a
-
-clapack_install: libminf2c.a
-	mv libminf2c.a ../../BUILD
 
 clean:
 	rm -f libminf2c.a *.o arith.h signal1.h sysdep1.h

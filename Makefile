@@ -1,22 +1,18 @@
-CLAPACK=src/base
-BLAS_LIB=$(CLAPACK)/BUILD/libminblas.a
-F2C_LIB=$(CLAPACK)/BUILD/libminf2c.a
-ADDITIONAL=src/additional
+SOURCE=src
+include $(SOURCE)/min-make.inc
 
 all: clean install run
 
 run:
-	gcc $(ADDITIONAL)/*.c main.c -lm $(BLAS_LIB) $(F2C_LIB) -I$(ADDITIONAL) -omain
+	gcc main.c $(SOURCE)/$(BUILD)/*.a -lm -I$(SOURCE)/$(ADDITIONAL) -omain
 	./main
 
 install:
-	cd $(CLAPACK) && $(MAKE) -j5 blaslib
-	cd $(CLAPACK) && $(MAKE) -j5 f2clib
+	cd $(SOURCE) && $(MAKE) install
 
 clean:
-	cd $(CLAPACK) && $(MAKE) clean
+	cd $(SOURCE) && $(MAKE) clean
 	rm -rf main
-
 
 archive: clean
 	rm -rf min-dgels-src.tar.gz
