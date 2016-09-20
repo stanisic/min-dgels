@@ -5,8 +5,7 @@
 #include <assert.h>
 
 // From additional-lapack-func
-#include <f2c.h>
-#include <multiple_regression.h>
+#include <mindgels.h>
 
 // Necessary for GSL
 #include <math.h>

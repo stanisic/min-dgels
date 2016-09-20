@@ -2,8 +2,7 @@
 #include <stdlib.h>
 
 // From src/additional
-#include <f2c.h>
-#include <multiple_regression.h>
+#include <mindgels.h>
 
 void compute(double *A, double *B, double *X, long mm, int nn)
 {
