@@ -3,5 +3,4 @@
 *.a
 src/base/F2CLIBS/libf2c/*.h
 test/compare_gsl
-*.tar.gz
 main
