@@ -12,7 +12,7 @@ install:
 
 clean:
 	cd $(SOURCE) && $(MAKE) clean
-	rm -rf main
+	rm -rf main *~
 
 archive: clean
 	rm -rf min-dgels-src.tar.gz

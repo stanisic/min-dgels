@@ -10,4 +10,4 @@ compare_gsl:
 	./compare_gsl
 
 clean:
-	rm -rf compare_gsl
+	rm -rf compare_gsl *~

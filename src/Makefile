@@ -9,6 +9,6 @@ install:
 	cd $(ADDITIONAL) && gcc -c -fPIC *.c && $(ARCH) $(ARCHFLAGS) $(DGELSLIB) *.o && ranlib $(DGELSLIB)
 
 clean:
-	cd $(CLAPACK) && $(MAKE) clean
-	cd $(ADDITIONAL) && rm -rf *.o
-	rm -rf $(BUILD)
+	cd $(CLAPACK) && $(MAKE) clean && rm -rf *~
+	cd $(ADDITIONAL) && rm -rf *.o *~
+	rm -rf $(BUILD) *~
